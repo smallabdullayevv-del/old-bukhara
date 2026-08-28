@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Old Bukhara Restaurant - Premium Portal</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&family=Playfair+Display:ital,wght=0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            /* TUZATILDI: Orqa fonga restoraningiz rasmi o'rnatildi va u to'liq moslashuvchan */
+            background-image: linear-gradient(to bottom, rgba(11, 7, 6, 0.86), rgba(5, 3, 3, 0.94)), url('https://iili.io/C1FDyWN.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #0b0706; /* Rasm yuklanguncha zaxira rang */
+            overflow-x: hidden;
+        }
+        .font-serif-bukhara {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Premium oltin neon nurlanish */
+        .gold-glow-soft {
+            box-shadow: 0 0 50px rgba(230, 197, 117, 0.09);
+        }
+        .gold-glow-active {
+            box-shadow: 0 0 35px rgba(230, 197, 117, 0.25);
+        }
+        
+        /* Shaffof oyna effekti (Glassmorphism) */
+        .glass-card {
+            background: rgba(25, 18, 15, 0.62);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(230, 197, 117, 0.12);
+        }
+        .glass-card:hover {
+            border: 1px solid rgba(230, 197, 117, 0.35);
+            background: rgba(35, 26, 22, 0.75);
+            transform: translateY(-4px);
+        }
+
+        /* Ambient neon chiroqlar orqa fonda */
+        .bg-glow-1 {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0,0,0,0) 70%);
+            top: -120px;
+            left: -150px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .bg-glow-2 {
+            position: absolute;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(156, 24, 37, 0.06) 0%, rgba(0,0,0,0) 70%);
+            bottom: -150px;
+            right: -200px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Modal oynasi uchun maxsus aylantirish paneli */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0706;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e6c575;
+            border-radius: 10px;
+        }
+        
+        /* Logotip uchun silliq suzish animatsiyasi */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen flex justify-center items-center p-3 md:p-6 relative selection:bg-[#e6c575] selection:text-[#0b0706]">
+
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <!-- Smartfon o'lchamidagi asosiy konteyner -->
+    <div class="w-full max-w-md bg-gradient-to-b from-[#140f0d]/92 via-[#0e0908]/96 to-[#050303]/98 rounded-[38px] border border-[#e6c575]/20 p-5 md:p-6 flex flex-col items-center relative overflow-hidden my-2 gold-glow-soft backdrop-blur-md z-10">
+        
+        <!-- Elegant oltin chiziqli hoshiya -->
+        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#e6c575]/50 to-transparent"></div>
+
+        <!-- Tilni tanlash paneli -->
+        <div class="w-full flex justify-end mb-6 z-10">
+            <div class="flex space-x-1 bg-black/50 p-1 rounded-full border border-white/5 backdrop-blur-md">
+                <button onclick="changeLanguage('uz')" id="lang-uz" class="px-3.5 py-1 text-[10px] font-bold rounded-full transition-all duration-300 bg-[#e6c575] text-[#0b0706]">UZB</button>
+                <button onclick="changeLanguage('ru')" id="lang-ru" class="px-3.5 py-1 text-[10px] font-bold rounded-full transition-all duration-300 text-gray-400 hover:text-white">RUS</button>
+                <button onclick="changeLanguage('en')" id="lang-en" class="px-3.5 py-1 text-[10px] font-bold rounded-full transition-all duration-300 text-gray-400 hover:text-white">ENG</button>
+            </div>
+        </div>
+
+        <!-- Brend logotipi va sarlavhasi (Aylana shakldagi JPG uchun o'zgartirildi) -->
+        <div class="relative w-full flex flex-col items-center mb-7 z-10">
+            <div class="absolute w-32 h-32 bg-[#e6c575]/10 rounded-full blur-2xl top-1/2 -translate-y-1/2 pointer-events-none"></div>
+            
+            <!-- Aylana shaklidagi oltin hoshiyali konteyner -->
+            <div class="relative p-1 rounded-full bg-gradient-to-b from-[#e6c575] via-[#1f1714] to-[#e6c575] border border-[#e6c575]/30 floating-element gold-glow-active">
+                <div class="bg-[#0b0706] rounded-full p-1 flex justify-center items-center overflow-hidden w-28 h-28 md:w-32 md:h-32">
+                    <!-- Rasm shu yerga qo'yiladi. Masalan: logo.jpg yoki sizdagi boshqa rasm nomi. -->
+                    <!-- object-cover xususiyati rasmni buzmasdan aylana ichiga to'ldiradi -->
+                    <img src="https://iili.io/CExbggS.png" alt="Old Bukhara Restaurant" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/150x150/19120f/e6c575?text=Old+Bukhara'">
+                </div>
+            </div>
+            
+            <h1 class="font-serif-bukhara text-2xl md:text-3xl font-semibold tracking-wider text-[#e6c575] mt-5 text-center drop-shadow-lg">
+                OLD BUKHARA
+            </h1>
+            <p id="brand-subtitle" class="text-[10px] uppercase tracking-[0.3em] text-gray-400 mt-1 font-medium text-center">
+                Milliy va Shohona Taomlar
+            </p>
+            
+            <div class="flex flex-col items-center mt-4 space-y-2.5 z-10 w-full">
+                <!-- Premium Sharqona Naqshli Ajratuvchi -->
+                <div class="flex items-center space-x-3 w-full justify-center">
+                    <span class="w-10 h-[1px] bg-gradient-to-r from-transparent to-[#e6c575]/40"></span>
+                    <svg class="w-5 h-5 text-[#e6c575]/90 animate-[spin_30s_linear_infinite]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <!-- Elegant Buxoro milliy yulduz simvoli -->
+                        <path d="M12 2L15 9H22L16 14L18 21L12 17L6 21L8 14L2 9H9L12 2Z" fill="rgba(230, 197, 117, 0.15)"/>
+                        <path d="M12 5L13.8 9H18L14.5 11.5L15.8 15.5L12 13L8.2 15.5L9.5 11.5L6 9H10.2L12 5Z" />
+                        <circle cx="12" cy="12" r="2.5" fill="#e6c575" />
+                    </svg>
+                    <span class="w-10 h-[1px] bg-gradient-to-l from-transparent to-[#e6c575]/40"></span>
+                </div>
+                
+                <!-- Jonli Ish Holati Ko'rsatkichi (Ochiq / Yopiq) -->
+                <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1 rounded-full backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.05)]">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-[9px] font-bold text-emerald-400 uppercase tracking-[0.15em]" id="live-status">
+                        Hozir ochiq • 11:00 - 23:00
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- To'r simon (Grid) ko'rinishidagi asosiy plitkalar -->
+        <div class="w-full grid grid-cols-2 gap-3 z-10">
+            
+            <!-- Plitka 1: Shohona Menyu (Bosilganda to'g'ridan-to'g'ri linkga o'tadi) -->
+            <a href="https://heyzine.com/flip-book/9d119816fb.html" target="_blank" class="col-span-2 glass-card p-5 rounded-[24px] flex flex-col justify-between text-left transition-all duration-300 relative overflow-hidden group active:scale-[0.98] gold-glow-active w-full block">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-[#e6c575]/5 rounded-full blur-xl group-hover:bg-[#e6c575]/15 transition-all"></div>
+                
+                <div class="flex justify-between items-start w-full mb-3">
+                    <div class="w-12 h-12 bg-[#e6c575]/10 rounded-2xl flex items-center justify-center text-[#e6c575] group-hover:scale-110 transition-transform duration-300">
+                        <!-- Hashamatli taom lagani (Cloche) SVG ikonkasi -->
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 15a9 9 0 0 1 18 0H3z"/>
+                            <path d="M12 2v4"/>
+                            <path d="M21 19H3a2 2 0 0 1-2-2h22a2 2 0 0 1-2 2z"/>
+                        </svg>
+                    </div>
+                    <span class="text-[9px] uppercase tracking-widest bg-[#e6c575]/10 text-[#e6c575] px-2.5 py-1 rounded-full font-bold">VIP Menu</span>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white group-hover:text-[#e6c575] transition-colors" id="tile1-title">Shohona Taomnoma</h3>
+                    <p class="text-xs text-gray-400 mt-0.5" id="tile1-desc">Taomlar, gazaklar va ichimliklar ro'yxati</p>
+                </div>
+                <div class="flex items-center space-x-1.5 mt-4 text-[#e6c575] text-xs font-bold">
+                    <span id="tile1-action">Menyuni ochish</span>
+                    <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Plitka 2: Instagram -->
+            <a href="https://www.instagram.com/restaurantoldbukhara?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="glass-card p-4 rounded-[22px] flex flex-col justify-between text-left transition-all duration-300 group active:scale-95">
+                <div class="w-10 h-10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <!-- Instagram o'rnatilgan PNG rasm logotipi (Tenglashtirilgan vizual o'lcham) -->
+                    <img src="https://iili.io/CEA4q0P.png" alt="Instagram" class="w-[44px] h-[44px] min-w-[44px] min-h-[44px] object-contain">
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white group-hover:text-[#e6c575] transition-colors">Instagram</h4>
+                    <p class="text-[11px] text-gray-400 mt-0.5" id="tile2-desc">Jonli lahzalar</p>
+                </div>
+            </a>
+
+            <!-- Plitka 3: Telegram -->
+            <a href="https://t.me/oldbukhara_bot" target="_blank" class="glass-card p-4 rounded-[22px] flex flex-col justify-between text-left transition-all duration-300 group active:scale-95">
+                <div class="w-10 h-10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <!-- Telegram o'rnatilgan PNG rasm logotipi (Tenglashtirilgan vizual o'lcham) -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1280px-Telegram_logo.svg.png" alt="Telegram" class="w-[36px] h-[36px] min-w-[36px] min-h-[36px] object-contain">
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white group-hover:text-[#e6c575] transition-colors">Telegram</h4>
+                    <p class="text-[11px] text-gray-400 mt-0.5" id="tile3-desc">Fikirlar</p>
+                </div>
+            </a>
+
+            <!-- Plitka 4: Google Xarita Lokatsiyasi -->
+            <a href="https://maps.app.goo.gl/yPf6dz4xX2vY43k97" target="_blank" class="glass-card p-4 rounded-[22px] flex flex-col justify-between text-left transition-all duration-300 group active:scale-95">
+                <!-- TUZATILDI: Ikonka rangi umumiy oltin fonga moslandi -->
+                <div class="w-10 h-10 bg-[#e6c575]/10 rounded-xl flex items-center justify-center text-[#e6c575] mb-4 group-hover:scale-110 transition-transform">
+                    <!-- Joylashuv belgisi SVG -->
+                    <svg class="w-5.5 h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white group-hover:text-[#e6c575] transition-colors" id="tile4-title">Lokatsiya</h4>
+                    <p class="text-[11px] text-gray-400 mt-0.5" id="tile4-desc">Google Xarita</p>
+                </div>
+            </a>
+
+            <!-- Plitka 5: TripAdvisor Sharhlari -->
+            <a href="https://www.tripadvisor.ru/Restaurant_Review-g303936-d6834958-Reviews-Restaurant_Old_Bukhara-Bukhara_Bukhara_Province.html" target="_blank" class="glass-card p-4 rounded-[22px] flex flex-col justify-between text-left transition-all duration-300 group active:scale-95">
+                <div class="w-10 h-10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <!-- TripAdvisor o'rnatilgan rasmiy logotipi (Tenglashtirilgan o'lchamda) -->
+                    <img src="https://iili.io/BDpYeje.png" alt="TripAdvisor" class="w-[42px] h-[42px] min-w-[42px] min-h-[42px] object-contain" onerror="this.onerror=null; this.src='https://placehold.co/150x150/19120f/e6c575?text=TripAdvisor'">
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white group-hover:text-[#e6c575] transition-colors" id="tile5-title">Fikrlar</h4>
+                    <p class="text-[11px] text-gray-400 mt-0.5" id="tile5-desc">TripAdvisor saytida</p>
+                </div>
+            </a>
+
+            <!-- Aloqa Telefon Raqamlari -->
+            <div class="col-span-2 grid grid-cols-2 gap-3 mt-1">
+                <!-- Aloqa Raqami 1 -->
+                <a href="tel:+998912468888" class="glass-card p-3.5 rounded-2xl flex items-center space-x-3 transition-all duration-300 group active:scale-95">
+                    <div class="w-8.5 h-8.5 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] group-hover:bg-[#e6c575]/20">
+                        <!-- Telefon trubkasi SVG -->
+                        <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <div class="min-w-0">
+                        <span class="block text-[8px] uppercase text-gray-400 tracking-wider" id="lbl-phone1">Aloqa uchun</span>
+                        <span class="block text-xs font-bold text-white tracking-tight truncate">+998 90 185-70-77</span>
+                    </div>
+                </a>
+                
+                <!-- Aloqa Raqami 2 -->
+                <a href="tel:+998914037777" class="glass-card p-3.5 rounded-2xl flex items-center space-x-3 transition-all duration-300 group active:scale-95">
+                    <div class="w-8.5 h-8.5 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] group-hover:bg-[#e6c575]/20">
+                        <!-- Smartfon SVG -->
+                        <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <div class="min-w-0">
+                        <span class="block text-[8px] uppercase text-gray-400 tracking-wider" id="lbl-phone2">Qo'shimcha</span>
+                        <span class="block text-xs font-bold text-white tracking-tight truncate">+998 91 241-07-70</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Mualliflik huquqi matni -->
+        <div class="mt-8 text-center z-10 w-full flex flex-col items-center space-y-1.5">
+            <p id="copyright" class="text-[9px] text-gray-500 tracking-wider">
+                © 2026 Old Bukhara Restaurant. Barcha huquqlar himoyalangan.
+            </p>
+            <a href="https://t.me/smldsgn" target="_blank" rel="noopener noreferrer" class="text-[10px] text-gray-400/80 hover:text-[#e6c575] transition-colors duration-300 tracking-wider font-medium group inline-flex items-center gap-1">
+                <span>by</span>
+                <span class="text-[#e6c575] font-bold group-hover:underline">sml.dsgn</span>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Taomnoma Bo'limlari oynasi (Menu Modal) -->
+    <div id="menu-modal" class="fixed inset-0 bg-black/95 hidden z-50 flex items-center justify-center p-4 backdrop-blur-xl">
+        <div class="w-full max-w-sm bg-[#140f0d] rounded-3xl border border-[#e6c575]/30 p-5 shadow-2xl relative max-h-[85vh] flex flex-col">
+            <!-- Modal Sarlavhasi va Yopish tugmasi -->
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-[#e6c575]/20">
+                <div>
+                    <h3 id="menu-modal-title" class="font-serif-bukhara text-lg font-bold text-[#e6c575]">Taomnoma Bo'limlari</h3>
+                    <p class="text-[10px] text-gray-400" id="menu-modal-subtitle">Kerakli bo'limni tanlang</p>
+                </div>
+                <button onclick="closeMenuModal()" class="w-8 h-8 rounded-full bg-[#e6c575]/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- 11 Ta Taomnoma Bo'limlari Ro'yxati -->
+            <div class="overflow-y-auto space-y-2 pr-1 custom-scrollbar flex-1">
+                
+                <!-- 1. Salat -->
+                <a href="https://drive.google.com/file/d/15HA4ur8Baw5E-QnrLteLt0NynDyJOEws/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🥗</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="salat">Салат / Salad</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 2. Xalod zakuska -->
+                <a href="https://drive.google.com/file/d/1hane_1h9G7zFeXBGNoJVLXbzrAk4yMGE/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🧀</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="xalod">Холодный закуски / Cold appetizers</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 3. Goryachi zakuska -->
+                <a href="https://drive.google.com/file/d/1yJSgJMGanFR-PUca9wRaSS1enzaTXMPm/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🧆</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="goryachi">Горячий закуски / Hot appetizers</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 4. Sup -->
+                <a href="https://drive.google.com/file/d/1qNGu1O9wtOoTDEBijM1besRM6vkv-Mdf/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🍲</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="sup">Суп / Soup </span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 5. Bluda barani -->
+                <a href="https://drive.google.com/file/d/1gUy7lPWNjJvuoL781dIAti8wCPDJygLk/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🍖</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="barani">Блюда Из Баранины / Lamb Dishes</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 6. Bluda iz gavyadina -->
+                <a href="https://drive.google.com/file/d/1LejTWnSrhgGcsIMF8748TO69L_hjmHww/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🥩</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="gavyadina">Блюда Из Говядины / Beef Dishes</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 7. Bluda iz kurits i rib -->
+                <a href="https://drive.google.com/file/d/1JwLVh-3MVkxXd_CQmk42vJR-NU4_ofHI/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🍗</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="kurits_rib">Блюда Из Курицы И Рыбы / Chicken And Fish Dishes</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 8. Shashlik -->
+                <a href="https://drive.google.com/file/d/1eFdGC4kKqBvu58qgNqceomResit0rKNL/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🍢</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="shashlik">Шашлыки / shish Kebab</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 9. Veg blyud -->
+                <a href="https://drive.google.com/file/d/1KpVmLufemQdqBN1OIiwuxn0PJx-YnfaA/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🥦</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="veg">Вегетарианские Блюда / Vegetarian Dishes</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 10. Garnir -->
+                <a href="https://drive.google.com/file/d/1rLToNrgia2OzVH1Qht3UKzbK5LgWO4UG/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🍟</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="garnir">Гарниры / Garnishes</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 11. Xleb -->
+                <a href="https://drive.google.com/file/d/1zq82Wt8D2uWpJkt0Yqx28azTWvi6UOho/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🍞</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="xleb">Хлеб / Bread</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 12. Desert -->
+                <a href="https://drive.google.com/file/d/1cpLDJVCQ0pYuz0TPBA6j19had0Sg7DfN/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🍰</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="desert">Десерты / Desserts</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- 13. Meva -->
+                <a href="https://drive.google.com/file/d/1pvev6dHE53oGEMeeNC_QzmHFDGYXWdFJ/view?usp=sharing" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between group active:scale-98 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-[#e6c575]/10 flex items-center justify-center text-[#e6c575] text-sm">🍉</span>
+                        <span class="text-xs font-bold text-white group-hover:text-[#e6c575] transition-colors" data-cat="meva">Фрукты / Fruits</span>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e6c575]/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Fikr qoldirish oynasi (Modal popup) -->
+    <div id="review-modal" class="fixed inset-0 bg-black/95 hidden z-50 flex items-center justify-center p-4 backdrop-blur-xl">
+        <div class="w-full max-w-sm bg-[#140f0d] rounded-3xl border border-[#e6c575]/30 p-5 shadow-2xl relative">
+            <button onclick="closeReviewModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <!-- Yopish (X) SVG -->
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h3 id="review-title" class="font-serif-bukhara text-lg font-bold text-[#e6c575] mb-4">Fikr qoldirish</h3>
+            
+            <form id="review-form" onsubmit="handleReviewSubmit(event)" class="space-y-4">
+                <div>
+                    <label id="lbl-name" class="block text-[10px] uppercase text-gray-400 mb-1 font-bold tracking-wider">Ismingiz</label>
+                    <input type="text" required id="reviewer-name" class="w-full p-3 rounded-xl bg-black/40 border border-[#e6c575]/20 text-white text-xs focus:outline-none focus:border-[#e6c575] transition-colors">
+                </div>
+                <div>
+                    <label id="lbl-stars" class="block text-[10px] uppercase text-gray-400 mb-1 font-bold tracking-wider">Baholang</label>
+                    <div class="flex space-x-2 text-xl text-[#e6c575]">
+                        <button type="button" onclick="setRating(1)"><svg class="w-6 h-6 star-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                        <button type="button" onclick="setRating(2)"><svg class="w-6 h-6 star-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                        <button type="button" onclick="setRating(3)"><svg class="w-6 h-6 star-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                        <button type="button" onclick="setRating(4)"><svg class="w-6 h-6 star-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                        <button type="button" onclick="setRating(5)"><svg class="w-6 h-6 star-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                    </div>
+                </div>
+                <div>
+                    <label id="lbl-comment" class="block text-[10px] uppercase text-gray-400 mb-1 font-bold tracking-wider">Izoh</label>
+                    <textarea rows="3" required id="reviewer-comment" class="w-full p-3 rounded-xl bg-black/40 border border-[#e6c575]/20 text-white text-xs focus:outline-none focus:border-[#e6c575] transition-colors"></textarea>
+                </div>
+                <button type="submit" id="btn-send" class="w-full py-3 bg-[#e6c575] hover:bg-[#d6b35e] text-[#0b0706] font-extrabold text-xs rounded-xl transition-colors duration-200">
+                    Yuborish
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Premium bildirishnoma (Toast Popup) -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#e6c575] text-[#0b0706] px-5 py-3 rounded-full font-bold text-xs shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 z-50 pointer-events-none flex items-center space-x-2">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toast-text">Muvaffaqiyatli bajarildi!</span>
+    </div>
+
+    <script>
+        // Uch tildagi lug'at ma'lumotlari
+        const dictionary = {
+            uz: {
+                subtitle: "Milliy va Shohona Taomlar",
+                status_text: "Hozir ochiq • 11:00 - 23:00",
+                tile1_title: "Taomnoma",
+                tile1_desc: "Taomlar va ichimliklar ro'yxati",
+                tile1_action: "Menyuni ochish",
+                tile2_desc: "Jonli lahzalar",
+                tile3_desc: "Fikrlar",
+                tile4_title: "Lokatsiya",
+                tile4_desc: "Google Xarita",
+                tile5_title: "TripAdvisor",
+                tile5_desc: "Sahifamiz",
+                lbl_phone1: "Aloqa uchun",
+                lbl_phone2: "Qo'shimcha",
+                btnFeedback: "Fikr Qoldirish",
+                btnShare: "Ulashish",
+                copyright: "© 2026 Old Bukhara Restaurant. Barcha huquqlar himoyalangan.",
+                toast_share: "Havola nusxalandi!",
+                toast_feedback: "Fikr-mulohazangiz uchun rahmat!",
+                review_title: "Fikr qoldirish",
+                lbl_name: "Ismingiz",
+                lbl_stars: "Baholang",
+                lbl_comment: "Izoh",
+                btn_send: "Yuborish",
+                menu_modal_title: "Taomnoma Bo'limlari",
+                menu_modal_subtitle: "Kerakli bo'limni tanlang"
+            },
+            ru: {
+                subtitle: "Национальные и Царские Блюда",
+                status_text: "Сейчас открыто • 11:00 - 23:00",
+                tile1_title: "Меню",
+                tile1_desc: "Список блюд и напитков",
+                tile1_action: "Открыть меню",
+                tile2_desc: "Наша страница",
+                tile3_desc: "Отзывы",
+                tile4_title: "Адрес",
+                tile4_desc: "Локация (Google Maps)",
+                tile5_title: "TripAdvisor",
+                tile5_desc: "Наша страница",
+                lbl_phone1: "Для связи",
+                lbl_phone2: "Дополнительно",
+                btnFeedback: "Оставить отзыв",
+                btnShare: "Поделиться",
+                copyright: "© 2026 Old Bukhara Restaurant. Все права защищены.",
+                toast_share: "Ссылка скопирована в буфер!",
+                toast_feedback: "Спасибо за ваш отзыв!",
+                review_title: "Оставьте ваше мнение",
+                lbl_name: "Ваше имя",
+                lbl_stars: "Оцените",
+                lbl_comment: "Комментарий",
+                btn_send: "Отправить",
+                menu_modal_title: "Разделы Меню",
+                menu_modal_subtitle: "Выберите нужную категорию"
+            },
+            en: {
+                subtitle: "National and Royal Bukhara Dishes",
+                status_text: "Open now • 11:00 AM - 11:00 PM",
+                tile1_title: "Menu",
+                tile1_desc: "Exclusive list of foods & drinks",
+                tile1_action: "Open Menu",
+                tile2_desc: "Our Official Instagram",
+                tile3_desc: "Reviews",
+                tile4_title: "Location",
+                tile4_desc: "Google Maps Pin",
+                tile5_title: "TripAdvisor",
+                tile5_desc: "Our page",
+                lbl_phone1: "Contact phone",
+                lbl_phone2: "Secondary phone",
+                btnFeedback: "Leave Feedback",
+                btnShare: "Share Portal",
+                copyright: "© 2026 Old Bukhara Restaurant. All rights reserved.",
+                toast_share: "Link copied to clipboard!",
+                toast_feedback: "Thank you for your feedback!",
+                review_title: "Give us your feedback",
+                lbl_name: "Your Name",
+                lbl_stars: "Rate us",
+                lbl_comment: "Comment",
+                btn_send: "Submit",
+                menu_modal_title: "Menu Categories",
+                menu_modal_subtitle: "Select a category"
+            }
+        };
+
+        // Standart holatdagi faol til va yulduzlar bahosi
+        let currentLanguage = 'uz';
+        let currentRating = 0;
+
+        window.onload = function() {
+            changeLanguage('uz');
+        };
+
+        // Menyu bo'limlari oynasini ochish
+        function openMenuModal() {
+            const modal = document.getElementById('menu-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Menyu bo'limlari oynasini yopish
+        function closeMenuModal() {
+            const modal = document.getElementById('menu-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Sahifadagi barcha matnlarni tezkor tarjima qilish funksiyasi
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Faol til tugmasini vizual ajratish
+            ['uz', 'ru', 'en'].forEach(l => {
+                const btn = document.getElementById(`lang-${l}`);
+                if (btn) {
+                    if (l === lang) {
+                        btn.className = "px-3.5 py-1 text-[10px] font-bold rounded-full transition-all duration-300 bg-[#e6c575] text-[#0b0706]";
+                    } else {
+                        btn.className = "px-3.5 py-1 text-[10px] font-bold rounded-full transition-all duration-300 text-gray-400 hover:text-white";
+                    }
+                }
+            });
+
+            // Matnlarni almashtirish
+            document.getElementById('brand-subtitle').innerText = dictionary[lang].subtitle;
+            document.getElementById('live-status').innerText = dictionary[lang].status_text;
+            
+            document.getElementById('tile1-title').innerText = dictionary[lang].tile1_title;
+            document.getElementById('tile1-desc').innerText = dictionary[lang].tile1_desc;
+            document.getElementById('tile1-action').innerText = dictionary[lang].tile1_action;
+            
+            document.getElementById('tile2-desc').innerText = dictionary[lang].tile2_desc;
+            document.getElementById('tile3-desc').innerText = dictionary[lang].tile3_desc;
+            
+            document.getElementById('tile4-title').innerText = dictionary[lang].tile4_title;
+            document.getElementById('tile4-desc').innerText = dictionary[lang].tile4_desc;
+            
+            document.getElementById('tile5-title').innerText = dictionary[lang].tile5_title;
+            document.getElementById('tile5-desc').innerText = dictionary[lang].tile5_desc;
+            
+            document.getElementById('lbl-phone1').innerText = dictionary[lang].lbl_phone1;
+            document.getElementById('lbl-phone2').innerText = dictionary[lang].lbl_phone2;
+            
+            if (document.getElementById('btn-feedback')) {
+                document.getElementById('btn-feedback').innerText = dictionary[lang].btnFeedback;
+            }
+            if (document.getElementById('btn-share')) {
+                document.getElementById('btn-share').innerText = dictionary[lang].btnShare;
+            }
+            
+            document.getElementById('copyright').innerText = dictionary[lang].copyright;
+
+            document.getElementById('review-title').innerText = dictionary[lang].review_title;
+            document.getElementById('lbl-name').innerText = dictionary[lang].lbl_name;
+            document.getElementById('lbl-stars').innerText = dictionary[lang].lbl_stars;
+            document.getElementById('lbl-comment').innerText = dictionary[lang].lbl_comment;
+            document.getElementById('btn-send').innerText = dictionary[lang].btn_send;
+
+            if (document.getElementById('menu-modal-title')) {
+                document.getElementById('menu-modal-title').innerText = dictionary[lang].menu_modal_title;
+                document.getElementById('menu-modal-subtitle').innerText = dictionary[lang].menu_modal_subtitle;
+            }
+        }
+
+        // Muloqot oynasini ochish
+        function openReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Muloqot oynasini yopish
+        function closeReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+            document.getElementById('review-form').reset();
+            setRating(0);
+        }
+
+        // Yulduzchalarni to'ldirish (Baho berish)
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('.star-btn-svg');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.setAttribute('fill', '#e6c575');
+                    star.setAttribute('stroke', '#e6c575');
+                    star.classList.add('text-[#e6c575]');
+                } else {
+                    star.setAttribute('fill', 'none');
+                    star.setAttribute('stroke', 'currentColor');
+                    star.classList.remove('text-[#e6c575]');
+                }
+            });
+        }
+
+        // Fikr yuborishni qayta ishlash
+        function handleReviewSubmit(e) {
+            e.preventDefault();
+            closeReviewModal();
+            showToast(dictionary[currentLanguage].toast_feedback);
+        }
+
+        // Premium bildirishnomani ko'rsatish
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').innerText = text;
+            
+            toast.classList.remove('opacity-0', 'translate-y-20');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-20');
+            }, 3000);
+        }
+
+        // Havola nusxasini olish (Clipboard API ga xavfsiz zaxira usul)
+        function sharePage() {
+            const dummy = document.createElement('input');
+            const text = window.location.href;
+            
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            showToast(dictionary[currentLanguage].toast_share);
+        }
+    </script>
+</body>
+</html>
